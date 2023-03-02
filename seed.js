@@ -2,6 +2,7 @@ const Vehicle = require("./vehicleModel");
 
 const seed = async () => {
     try {
+    const sync = await Vehicle.sync();
     const count = await Vehicle.count();
     console.log(count);
    if (count === 0) {

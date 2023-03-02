@@ -21,9 +21,10 @@ const Vehicle = db.sequelize.define("Vehicle", {
   },
 });
 
- Vehicle.sync();
+
 
 
 
 
 module.exports = Vehicle;
+

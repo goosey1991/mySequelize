@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const Vehicle = require("./vehicleModel");
-// const seed = require("./seed");
+const seed = require("./seed");
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,6 +13,7 @@ app.listen(process.env.PORT || 3000, () => {
   console.log("Server started on port 3000 or heroku port");
 });
 
+seed()
 //create a new vehicle
 // const myNewCar = Vehicle.create(
 //    {make: 'Seat', model:'Ibiza'}
