@@ -49,9 +49,10 @@ seed()
 app.get("/", async (req, res) => {
   try {
     const data = await Vehicle.findAll();
-    const updatedData = [];
-    updatedData.push(
-      ...data.map(vehicle => ({
+    //const updatedData = [];
+    //updatedData.push(
+      //new code below to create array and populate it in the same line instead of above where it creates the array first and then pushes the map function into the array.
+      const updatedData = data.map(vehicle => ({
         id: vehicle.id,
         make: vehicle.make,
         model: vehicle.model,
@@ -59,7 +60,7 @@ app.get("/", async (req, res) => {
         createdAt: vehicle.createdAt,
         updatedAt: vehicle.updatedAt,
       }))
-    );
+    ;
     res.json(updatedData);
   } catch (error) {
     console.log(error);
