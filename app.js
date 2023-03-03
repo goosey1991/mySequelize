@@ -13,83 +13,31 @@ app.listen(process.env.PORT || 3000, () => {
   console.log("Server started on port 3000 or heroku port");
 });
 
-seed()
-//create a new vehicle
-// const myNewCar = Vehicle.create(
-//    {make: 'Seat', model:'Ibiza'}
-// );
-// const myNewCarTwo = Vehicle.create(
-//   {make: 'Renault', model:'Clio'}
-// );
+//calling the seed function to populate data in the database if its empty
+seed();
 
-// const tableCount = async () => {
-//   try {
-//   const count = await Vehicle.count();
-//   console.log(count);
-//  if (count === 1) {
-// console.log("Table has one record, creating records"); 
-// const myNewCar = Vehicle.create(
-//    {make: 'Ford', model:'Fiesta'}
-// );
-// const myNewCarTwo = Vehicle.create(
-//   {make: 'Vauxhall', model:'Corsa'}
-// )} else {
-//   console.log("Table has more than one record, no action required.");
-// }
-// } 
-//   catch (error) {
-//     console.log(error);
-//   }
-// }
-
-
-//tweaking the response from the db to include a new field in response
-// called makeModel
-
+//default route to show all vehicles with customised field makeModel
 app.get("/", async (req, res) => {
   try {
     const data = await Vehicle.findAll();
-    //const updatedData = [];
-    //updatedData.push(
-      //new code below to create array and populate it in the same line instead of above where it creates the array first and then pushes the map function into the array.
+   
+      //new code below to create array and populate it in the same line
       const updatedData = data.map(vehicle => ({
         id: vehicle.id,
         make: vehicle.make,
         model: vehicle.model,
-        makeModel: [vehicle.make, vehicle.model].join("-"),
+        makeModel: `${vehicle.make} ${vehicle.model}`,
         createdAt: vehicle.createdAt,
         updatedAt: vehicle.updatedAt,
-      }))
-    ;
+  }));
+    
     res.json(updatedData);
   } catch (error) {
     console.log(error);
   }
 });
-//without async/await
-/*app.get("/", (req, res) => {
-  const vehicles = Vehicle.findAll().then((data) => {
-      // create an empty array
-      const updatedData = []
 
-      //adds into the new array the results of the data.map function
-    updatedData.push(data.map((vehicle) => ({
-      id : vehicle.id,
-      make : vehicle.make,
-      model : vehicle.model,
-      makeModel : [vehicle.make,vehicle.model].join("-"),
-      createdAt : vehicle.createdAt,
-      updatedAt : vehicle.updatedAt
-    }
-
-  )))
-    //sends the updated array back to the client
-      res.send(updatedData);
-  });
-});*/
-
-//generic route to get all vehicles from the database
-
+//all route to get all vehicles from the database
 app.get("/all", async (req, res) => {
   try {
     const vehicles = await Vehicle.findAll();
@@ -100,6 +48,7 @@ app.get("/all", async (req, res) => {
   }
 });
 
+//route to delete a vehicle make by using the route as the variable
 app.delete("/:vehicleMake", async (req, res) => {
   const vehicleMake = req.params.vehicleMake;
   try {
