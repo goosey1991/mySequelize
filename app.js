@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const Vehicle = require("./vehicleModel");
-const seed = require("./seed");
+//const seed = require("./seed");
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,7 +14,7 @@ app.listen(process.env.PORT || 3000, () => {
 });
 
 //calling the seed function to populate data in the database if its empty
-seed();
+//seed();
 
 //default route to show all vehicles with customised field makeModel
 app.get("/", async (req, res) => {
