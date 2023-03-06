@@ -21,10 +21,4 @@ const Vehicle = db.sequelize.define("Vehicle", {
   },
 });
 
-
-
-
-
-
 module.exports = Vehicle;
-
