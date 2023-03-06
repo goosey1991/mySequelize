@@ -12,21 +12,21 @@ module.exports = {
 
     await queryInterface.createTable ('Vehicles', {
       id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
       make: {
-        type: DataTypes.STRING,
+        type: Sequelize.DataTypes.STRING,
       },
       model: {
-        type: DataTypes.STRING,
+        type: Sequelize.DataTypes.STRING,
       },
       createdAt: {
-        type: DataTypes.DATE,
+        type: Sequelize.DataTypes.DATE,
       },
       updatedAt: {
-        type: DataTypes.DATE,
+        type: Sequelize.DataTypes.DATE,
       },
     });
   },
