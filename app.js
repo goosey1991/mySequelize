@@ -4,7 +4,6 @@ const app = express();
 const Vehicle = require("./vehicleModel");
 //const seed = require("./seed");
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -20,17 +19,17 @@ app.listen(process.env.PORT || 3000, () => {
 app.get("/", async (req, res) => {
   try {
     const data = await Vehicle.findAll();
-   
-      //new code below to create array and populate it in the same line
-      const updatedData = data.map(vehicle => ({
-        id: vehicle.id,
-        make: vehicle.make,
-        model: vehicle.model,
-        makeModel: `${vehicle.make} ${vehicle.model}`,
-        createdAt: vehicle.createdAt,
-        updatedAt: vehicle.updatedAt,
-  }));
-    
+
+    //new code below to create array and populate it in the same line
+    const updatedData = data.map((vehicle) => ({
+      id: vehicle.id,
+      make: vehicle.make,
+      model: vehicle.model,
+      makeModel: `${vehicle.make} ${vehicle.model}`,
+      createdAt: vehicle.createdAt,
+      updatedAt: vehicle.updatedAt,
+    }));
+
     res.json(updatedData);
   } catch (error) {
     console.log(error);
@@ -76,7 +75,6 @@ app.get("/:vehicleMake", async (req, res) => {
     });
     console.log(foundVehicle);
     if (foundVehicle) {
-     
       res.json(foundVehicle);
     } else {
       res.send("No Vehicle found with make: " + vehicleMake);
@@ -86,4 +84,22 @@ app.get("/:vehicleMake", async (req, res) => {
   }
 });
 
-
+app.post("/:vehicleMake/:vehicleModel", async (req, res) => {
+  const vehicleMake = req.params.vehicleMake;
+  const vehicleModel = req.params.vehicleModel;
+  try {
+    const newVehicle = await Vehicle.create({
+      make: vehicleMake,
+      model: vehicleModel,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    console.log(newVehicle);
+    
+      res.send("New Vehicle Added to database. Make: " + vehicleMake + " & Model: " + vehicleModel);
+    } 
+   catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
