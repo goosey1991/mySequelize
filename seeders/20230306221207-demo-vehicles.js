@@ -18,14 +18,20 @@ module.exports = {
         {
           make: "Ford",
           model: "Fiesta",
+          createdAt: new Date(),
+      updatedAt: new Date()
         },
         {
           make: "Vauxhall",
           model: "Corsa",
+          createdAt: new Date(),
+      updatedAt: new Date()
         },
         {
           make: "BMW",
           model: "i3",
+          createdAt: new Date(),
+      updatedAt: new Date()
         },
       ]);
   },

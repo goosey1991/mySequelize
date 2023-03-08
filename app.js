@@ -67,3 +67,23 @@ app.delete("/:vehicleMake", async (req, res) => {
     console.log(error);
   }
 });
+
+app.get("/:vehicleMake", async (req, res) => {
+  const vehicleMake = req.params.vehicleMake;
+  try {
+    const foundVehicle = await Vehicle.findAll({
+      where: { make: vehicleMake },
+    });
+    console.log(foundVehicle);
+    if (foundVehicle) {
+     
+      res.json(foundVehicle);
+    } else {
+      res.send("No Vehicle found with make: " + vehicleMake);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
